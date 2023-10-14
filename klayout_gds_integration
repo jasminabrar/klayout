@@ -10,7 +10,7 @@ Instructions
 
 - fork klayout GitHub repo, git clone repo 
 
-- install all required packages to build klayout on linux: 
+- install all required packages to build klayout on linux (refer to https://www.klayout.de/build.html): 
 	sudo apt-get update
 	sudo apt-get install build-essential
 	sudo apt-get install qtbase5-dev qttools5-dev libqt5xmlpatterns5-dev qtmultimedia5-dev 	  libqt5multimediawidgets5 libqt5svg5-dev
@@ -22,6 +22,12 @@ Instructions
 
 - run build script:
 	./build.sh
+
+- install remaining gdstk dependencies that may not be already installed (refer to https://github.com/heitzmann/gdstk):
+	sudo apt-get install qhull-bin
+	sudo apt-get install cmake
+	pip install numpy
+	pip install sphinx
 
 - pip install gplugins
 
