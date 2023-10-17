@@ -1,6 +1,7 @@
 This text file outlines how to use klayout with embedded gds factory on Mac M1 by using a linux (ubuntu 22) VM in UTM. UTM is a virtualization software for macOS and only for Apple platforms.
 
-As of 10/04/2023 these instructions are incomplete as I am still working through some bugs. These instructions will allow you to create a VM up to date with where I am with embedding gds factory in klayout.
+As of 10/17/2023 these instructions will allow you to run klayout with gdsfactory imported inside. Currently there are issues with running and displaying
+gdsfactory code through the klayout macro python command line, since klayout freezes when .show() command is used.
 
 Instructions
 - create linux VM by following the tutorial video: https://www.youtube.com/watch?v=6mtfncj9vhU
@@ -35,14 +36,15 @@ Instructions
 
 - navigate to bin-release folder in klayout repo
 
-- Fix symbolic link error that will prevent you from running klayout (note that this only fixes for the current session):
-	export LD_LIBRARY_PATH=$(pwd):$LD_LIBRARY_PATH
-
-	sudo ldconfig
-
+- Fix symbolic link error that will prevent you from running klayout:
+	- sudo nano /etc/ld/so/conf 
+	- add path to klayout/bin-release folder to end of file (e.g /home/user1/Documents/Github/klayout/bin-release)
+	- sudo ldconfig 
 
 - run klayout from command line:
 	./klayout
 
+- install klive and gdsfactory packages in klayout:
+	- tools -> manage packages
+
 - macros -> macro development -> import gdsfactory
-	- ERROR here, I am working to resolve
