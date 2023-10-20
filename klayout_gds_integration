@@ -44,7 +44,10 @@ Instructions
 - run klayout from command line:
 	./klayout
 
-- install klive and gdsfactory packages in klayout:
+- install pakages in klayout:
 	- tools -> manage packages
+	- siepic: first install siepic tools, then siepic ebeam pdk
+	- install klive
+	- install gdsfactory
 
 - macros -> macro development -> import gdsfactory
