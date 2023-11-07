@@ -1,9 +1,12 @@
-This text file outlines how to use klayout with embedded gds factory on Mac M1 by using a linux (ubuntu 22) VM in UTM. UTM is a virtualization software for macOS and only for Apple platforms.
+This text file outlines how to use klayout with embedded gds factory on:
+(1) Mac M1 by using a linux (ubuntu 22) VM in UTM. This should then also apply for any arm64 linux. 
+(2) Mac M1 itself (Note that this compilation was completed in a Mac M1 VM in UTM to start from a clean env). 
 
-As of 10/17/2023 these instructions will allow you to run klayout with gdsfactory imported inside. Currently there are issues with running and displaying
-gdsfactory code through the klayout macro python command line, since klayout freezes when .show() command is used.
 
-Instructions
+As of 11/7/2023 these instructions will allow you to run klayout with gdsfactory imported inside. 
+Currently there are issues with running and displaying gdsfactory code through the klayout macro python command line.
+
+Instructions for (1): Mac M1 by using a linux (ubuntu 22) VM in UTM / arm64 linux (skip VM setup steps)
 - create linux VM by following the tutorial video: https://www.youtube.com/watch?v=6mtfncj9vhU
 
 - if experiencing issues connecting to the internet on VM:
@@ -14,7 +17,7 @@ Instructions
 - install all required packages to build klayout on linux (refer to https://www.klayout.de/build.html): 
 	sudo apt-get update
 	sudo apt-get install build-essential
-	sudo apt-get install qtbase5-dev qttools5-dev libqt5xmlpatterns5-dev qtmultimedia5-dev 	  libqt5multimediawidgets5 libqt5svg5-dev
+	sudo apt-get install qtbase5-dev qttools5-dev libqt5xmlpatterns5-dev qtmultimedia5-dev libqt5multimediawidgets5 libqt5svg5-dev
 	sudo apt-get install ruby ruby-dev
 	sudo apt-get install python3 python3-dev
 	sudo apt-get install zlib1g-dev
@@ -43,6 +46,53 @@ Instructions
 
 - run klayout from command line:
 	./klayout
+
+- install pakages in klayout:
+	- tools -> manage packages
+	- siepic: first install siepic tools, then siepic ebeam pdk
+	- install klive
+	- install gdsfactory
+
+- macros -> macro development -> import gdsfactory
+
+
+Instructions for (2): Mac M1
+- fork klayout GitHub repo, git clone repo 
+
+- install anaconda: https://www.anaconda.com/download
+
+- link anaconda3 folder to Applications: 
+	ln -s ~/Anaconda3 /Applications/Anaconda3 
+
+- in klayout/macbuild/build4mac_env.py change from python3.9 to python3.11 as instructed in this github issue: https://github.com/KLayout/klayout/issues/1526
+
+- conda install ruby=3.1.4
+
+- apply patch to qt5: https://github.com/KLayout/klayout/issues/1493
+
+- install all gdstk dependencies:
+	brew install zlib
+	brew install qhull
+	brew install cmake
+	pip install numpy
+	pip install sphynx
+
+- install gdstk using conda:
+	sudo conda install –c conda-forge gdstk
+
+- pip install gdsfactory
+
+- navigate to cloned klayout repo
+
+- build klayout using anaconda3:
+	./build4mac.py -q qt5ana3 -r ana3 -p ana3 –noqtbinding  
+	./build4mac.py -q qt5ana3 -r ana3 -p ana3 –noqtbinding –y 
+
+- produced package should be named EX-qt5Ana3.pkg.macos-Ventura-release-Rana3Pana3
+
+- move klayout.app from EX-qt5Ana3.pkg.macos-Ventura-release-Rana3Pana3 to /Applications
+
+- run klayout
 
 - install pakages in klayout:
 	- tools -> manage packages
